@@ -24,11 +24,9 @@ const uploadImage = (file) => {
 };
 
 const imageUploadController = async (req, res,err) => {
-  console.log(">>>>>file",err);
   const file = req.file;
   const filepath = `${process.env.CLOUDFRONT_URL}/${req.file.originalname}`;
   const fileName = req.file.originalname;
-//   const contentType = req.file.contentType;
 
   try {
     if (!file) {
