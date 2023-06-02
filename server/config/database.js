@@ -1,7 +1,8 @@
 const mongoose =require('mongoose');
+require('dotenv').config()
 
 const connectDB=()=>{
-    const mongoDBUrl='mongodb://0.0.0.0:27017/ImageStorage'
+    const mongoDBUrl=process.env.MONGODB_URL
 
 //create mongoDB connection
 mongoose.connect(mongoDBUrl, {
