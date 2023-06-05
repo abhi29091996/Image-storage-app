@@ -23,10 +23,12 @@ const uploadImage = (file) => {
   });
 };
 
-const imageUploadController = async (req, res,err) => {
+const imageUploadController = async (req, res, err) => {
+  console.log(req.body)
   const file = req.file;
   const filepath = `${process.env.CLOUDFRONT_URL}/${req.file.originalname}`;
   const fileName = req.file.originalname;
+  const category=req.body.category
 
   try {
     if (!file) {
@@ -36,11 +38,11 @@ const imageUploadController = async (req, res,err) => {
     // Upload the file to S3
     const data = await uploadImage(file);
     const newImage = new Image({
-        filepath,
-        fileName,
-      });
+      filepath,
+      fileName,
+      category,
+    });
     await newImage.save();
-
 
     res.send({
       code: 200,
@@ -52,5 +54,9 @@ const imageUploadController = async (req, res,err) => {
     res.send(err);
   }
 };
+const getImageController = async (req, res) => {
+  const Images = await Image.find({});
+  res.send(Images);
+};
 
-module.exports = { imageUploadController };
+module.exports = { imageUploadController, getImageController };
